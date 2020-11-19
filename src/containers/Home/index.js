@@ -2,9 +2,9 @@ import React from "react";
 
 const Home = ()=>{
   return <div>
-    hello ssr
-
-    <button onClick={()=> alert(123)}>click</button>
+    hello world
+    <br/>
+    <button onClick={()=> alert("hello world")}>按钮</button>
   </div>
 }
 
