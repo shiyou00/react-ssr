@@ -9,7 +9,7 @@ const serverConfig = {
   entry:"./src/server/index.js",
   output:{
     filename:"bundle.js",
-    path:path.resolve(__dirname,"build")
+    path:path.resolve(__dirname,"../build")
   },
   externals:[nodeExternals()], //为了不把node_modules目录下的第三方模块打包进输出文件中,因为nodejs默认会去node_modules目录下去寻找和使用第三方模块。
 };
