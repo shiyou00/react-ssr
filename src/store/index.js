@@ -1,11 +1,12 @@
 import {applyMiddleware, createStore} from "redux";
 import thunk from "redux-thunk";
-const reducer = (state={name:"Lion"},action)=>{
-  return state;
-}
+import reducer from "./reducer";
 
-const getStore = ()=>{
+export const getStore = ()=>{
   return createStore(reducer,applyMiddleware(thunk));
 }
 
-export default getStore;
+export const getClientStore = ()=>{
+  const defaultState = window.INITIAL_STATE;
+  return createStore(reducer,defaultState,applyMiddleware(thunk));
+}

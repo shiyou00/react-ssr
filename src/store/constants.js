@@ -1,0 +1,1 @@
+export const CHANGE_USER_LIST = 'HOME/CHANGE_USER_LIST';
