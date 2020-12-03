@@ -9,6 +9,23 @@ const clientConfig = {
     filename:"index.js",
     path:path.resolve(__dirname,"../public")
   },
+  module:{
+    rules:[
+      {
+        test:/\.css$/i, // 正则匹配到.css样式文件
+        use:[
+          'style-loader', // 把得到的CSS内容插入到HTML中
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              modules: true
+            }
+          }
+        ]
+      }
+    ]
+  }
 }
 
-module.exports = merge(commonConfig,clientConfig);
+module.exports = merge(clientConfig,commonConfig);

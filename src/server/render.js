@@ -8,7 +8,9 @@ import {getStore} from "../store";
 
 export const render = (req,res)=>{
   const store = getStore();
-
+  const context = {
+    css: []
+  };
   const promises = matchRoutes(Routes, req.path).map(({ route }) => {
     const component = route.component;
     return component.getInitialData ? component.getInitialData(store) : null;
@@ -17,9 +19,12 @@ export const render = (req,res)=>{
   Promise.all(promises).then(()=>{
     const content = renderToString((
       <Provider store={store}>
-        <StaticRouter location={req.path}>{renderRoutes(Routes)}</StaticRouter>
+        <StaticRouter location={req.path} context={context}>{renderRoutes(Routes)}</StaticRouter>
       </Provider>
     ));
+
+    const css = context.css.length ? context.css.join('\n') : '';
+
     res.send( `
       <!doctype html>
       <html lang="en">
@@ -29,6 +34,7 @@ export const render = (req,res)=>{
                   content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
             <title>React SSR</title>
+            <style>${css}</style>
         </head>
         <body>
           <div id="root">${content}</div>
